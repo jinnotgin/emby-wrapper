@@ -201,16 +201,24 @@
 		setInterval(() => {
 			const locationArray = window.location.href.split("#");
 			const hrefArray = iframe_emby.contentWindow.location.href.split("#");
+
+			// if iframe address hasn't changed, abort
 			if (hrefArray.length === 1 || hrefArray[1] === "") return false;
 
-			if (!hrefArray[1].includes("videoosd.html")) {
+			if (hrefArray[1].includes("videoosd.html")) {
+				// if video is being played, hide wrapper
+				document.querySelector("body").classList.add("videoPlaying");
+			} else {
+				// if video is not being played, show wrapper
 				document.querySelector("body").classList.remove("videoPlaying");
 
+				// if document is still full-screen even when video is not playing, exit full screen
+				if (document.fullscreenElement) document.exitFullscreen();
+
+				// update the current URL to capture emby url state
 				if (locationArray.length == 1 || locationArray[1] !== hrefArray[1]) {
 					window.history.replaceState("", "", `#${hrefArray[1]}`);
 				}
-			} else {
-				document.querySelector("body").classList.add("videoPlaying");
 			}
 		}, 250);
 	</script>
