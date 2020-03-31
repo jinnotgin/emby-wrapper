@@ -165,7 +165,7 @@ a {
 	transition: var(--transition-speed);
 }
 
-.navbar:hover .logo svg {
+.navbar.expanded .logo svg {
 	transform: rotate(-0deg);
 }
 
@@ -212,19 +212,19 @@ a {
 		height: 100vh;
 	}
 
-	.navbar:hover {
+	.navbar.expanded {
 		width: 14rem;
 	}
 
-	.navbar:hover .link-text {
+	.navbar.expanded .link-text {
 		display: inline;
 	}
 
-	.navbar:hover .logo svg {
+	.navbar.expanded .logo svg {
 		margin-right: 11rem;
 	}
 
-	.navbar:hover .logo-text {
+	.navbar.expanded .logo-text {
 		right: 0;
 		margin-right: 1rem;
 	}

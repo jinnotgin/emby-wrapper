@@ -1,7 +1,7 @@
 <head>
 	<title>Jin ≠ Gin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="style.css?1585474663064" />
+	<link rel="stylesheet" href="style.css?1585664325715" />
 	<link
 		href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
 		rel="stylesheet"
@@ -14,16 +14,11 @@
 </head>
 
 <body>
-	<nav class="navbar">
+	<nav id="navbar" class="navbar">
 		<ul class="navbar-nav">
 			<li class="logo">
-				<div href="#" class="nav-link" target="_blank">
-					<a
-						href="https://linjin.me"
-						class="link-text logo-text"
-						target="_blank"
-						>Jin ≠ Gin</a
-					>
+				<a id="navToggle" href="#" class="nav-link">
+					<div class="link-text logo-text">Jin ≠ Gin</div>
 					<svg
 						aria-hidden="true"
 						focusable="false"
@@ -47,7 +42,7 @@
 							></path>
 						</g>
 					</svg>
-				</div>
+				</a>
 			</li>
 
 			<li class="nav-item">
@@ -193,6 +188,15 @@
 		[...document.querySelectorAll(".nav-link")].map(
 			elem => (elem.onclick = onClickHandler)
 		);
+
+		document.getElementById("navToggle").onclick = e => {
+			e.preventDefault();
+			const expanded = "expanded";
+			const $navbar = document.getElementById("navbar").classList;
+
+			if ($navbar.contains(expanded)) $navbar.remove(expanded);
+			else $navbar.add("expanded");
+		};
 
 		const iframe_emby = document.getElementById(`iframe_emby`);
 		iframe_emby.src = `/emby${
