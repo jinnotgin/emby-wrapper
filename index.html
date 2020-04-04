@@ -198,18 +198,24 @@
 			else $navbar.add("expanded");
 		};
 
+		const delim = "#!";
 		const iframe_emby = document.getElementById(`iframe_emby`);
 		iframe_emby.src = `/emby${
-			location.href.includes("#!") ? "#" + location.href.split("#")[1] : ""
+			location.href.includes(delim)
+				? `${delim}${location.href.split("#!")[1]}`
+				: ""
 		}`;
 		setInterval(() => {
-			const locationArray = window.location.href.split("#");
-			const hrefArray = iframe_emby.contentWindow.location.href.split("#");
+			const locationArray = window.location.href.split(delim);
+			const hrefArray = iframe_emby.contentWindow.location.href.split(delim);
 
 			// if iframe address hasn't changed, abort
 			if (hrefArray.length === 1 || hrefArray[1] === "") return false;
 
-			if (hrefArray[1].includes("videoosd.html")) {
+			if (hrefArray[1].includes("#dlg")) {
+				// if context menu is open, skip
+				return false;
+			} else if (hrefArray[1].includes("videoosd.html")) {
 				// if video is being played, hide wrapper
 				document.querySelector("body").classList.add("videoPlaying");
 			} else {
@@ -221,7 +227,7 @@
 
 				// update the current URL to capture emby url state
 				if (locationArray.length == 1 || locationArray[1] !== hrefArray[1]) {
-					window.history.replaceState("", "", `#${hrefArray[1]}`);
+					window.history.replaceState("", "", `${delim}${hrefArray[1]}`);
 				}
 			}
 		}, 250);
